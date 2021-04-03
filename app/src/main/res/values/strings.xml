@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Jaiz</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
+    <string name="start_from_the_continuation">Start from the continuation</string>
+</resources>
