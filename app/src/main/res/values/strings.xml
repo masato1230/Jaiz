@@ -6,4 +6,6 @@
     <string name="start_from_the_continuation">Start from the continuation</string>
     <string name="choose_a_course">Choose a course</string>
     <string name="study">Study</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
