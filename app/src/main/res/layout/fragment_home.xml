@@ -40,18 +40,23 @@
             android:background="@android:drawable/dialog_holo_dark_frame"
             app:cardCornerRadius="10dp">
 
-            <com.github.mikephil.charting.charts.PieChart
-                android:id="@+id/home_pie_chart"
+            <LinearLayout
                 android:background="@color/light_pink"
                 android:layout_width="match_parent"
-                android:layout_height="200dp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                android:layout_height="200dp" >
+                <com.github.mikephil.charting.charts.PieChart
+                    android:id="@+id/home_pie_chart"
+                    android:layout_width="match_parent"
+                    android:layout_marginTop="20dp"
+                    android:layout_height="180dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </LinearLayout>
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:layout_marginTop="150dp" >
+                android:layout_marginTop="200dp" >
             </androidx.constraintlayout.widget.ConstraintLayout>
 
         </androidx.cardview.widget.CardView>
