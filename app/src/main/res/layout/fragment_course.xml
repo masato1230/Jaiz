@@ -9,7 +9,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="150dp"
         android:layout_height="200dp"
-        android:background="@drawable/fuji_1" >
+        android:background="@drawable/lesson_1" >
 
         <TextView
             android:layout_width="wrap_content"

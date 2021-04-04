@@ -2,6 +2,7 @@ package com.jp_funda.jaiz.ui.home;
 
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,9 +21,17 @@ import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.formatter.PercentFormatter;
 import com.github.mikephil.charting.utils.ColorTemplate;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.jp_funda.jaiz.R;
 
 import java.util.ArrayList;
+import java.util.List;
 
 
 public class HomeFragment extends Fragment {
@@ -31,24 +40,39 @@ public class HomeFragment extends Fragment {
     private View root;
     private PieChart pieChart;
 
+    // Firebase Test
+    private TextView homeTitleOne;
+    private FirebaseDatabase database;
+    private DatabaseReference databaseReference;
+
+
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         homeViewModel =
                 new ViewModelProvider(this).get(HomeViewModel.class);
         root = inflater.inflate(R.layout.fragment_home, container, false);
-        final TextView textView = root.findViewById(R.id.home_title_one);
-        homeViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
-            @Override
-            public void onChanged(@Nullable String s) {
-                textView.setText(s);
-            }
-        });
+//        final TextView textView = root.findViewById(R.id.home_title_one);
+//        homeViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
+//            @Override
+//            public void onChanged(@Nullable String s) {
+//                textView.setText(s);
+//            }
+//        });
+
+        // firebase Test
+        database = FirebaseDatabase.getInstance();
+        databaseReference = database.getReference("Data");
+        homeTitleOne = root.findViewById(R.id.home_title_one);
+        getData();
+        getCompleteData();
+
+        // 円グラフの描画
         createPieChart();
         return root;
     }
 
     private void createPieChart() {
-        PieChart pieChart = (PieChart) root.findViewById(R.id.home_pie_chart);
+        pieChart = (PieChart) root.findViewById(R.id.home_pie_chart);
 
         pieChart.setDrawHoleEnabled(true); // 真ん中に穴を空けるかどうか
         pieChart.setHoleRadius(50f);       // 真ん中の穴の大きさ(%指定)
@@ -95,5 +119,29 @@ public class HomeFragment extends Fragment {
         data.setValueTextSize(12f);
         data.setValueTextColor(Color.WHITE);
         return data;
+    }
+
+    public void getData() {
+        databaseReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                String value = dataSnapshot.getValue(String.class);
+                homeTitleOne.setText(value);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+    public void getCompleteData() {
+        databaseReference.child("Data").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DataSnapshot> task) {
+                Log.d("Data: " ,String.valueOf(task.getResult().getValue()));
+            }
+        });
     }
 }

@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "1007003044049",
+    "firebase_url": "https://jaiz-1f508-default-rtdb.firebaseio.com",
+    "project_id": "jaiz-1f508",
+    "storage_bucket": "jaiz-1f508.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1007003044049:android:da153be88eae6ac3159df0",
+        "android_client_info": {
+          "package_name": "com.jp_funda.jaiz"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1007003044049-fvol6i83drudfl0epad13rgg83e5qaq6.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBxZBVrjn7THmCGeE7J_WQn-9t9DEqBaEU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1007003044049-fvol6i83drudfl0epad13rgg83e5qaq6.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
