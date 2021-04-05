@@ -1,11 +1,13 @@
 package com.jp_funda.jaiz.ui.home;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -42,6 +44,9 @@ public class HomeFragment extends Fragment {
     private View root;
     private PieChart pieChart;
 
+    // Views
+    private TextView studyButton;
+
     // Firebase Test
     private TextView homeTitleOne;
     private FirebaseDatabase database;
@@ -61,6 +66,9 @@ public class HomeFragment extends Fragment {
 //            }
 //        });
 
+        // initialize Views
+        studyButton = root.findViewById(R.id.home_study_button);
+
         // firebase Test
         database = FirebaseDatabase.getInstance();
         databaseReference = database.getReference("Data");
@@ -70,6 +78,10 @@ public class HomeFragment extends Fragment {
 
         // 円グラフの描画
         createPieChart();
+
+        // click listeners
+        studyButton.setOnClickListener(this::onStudyStart);
+
         return root;
     }
 
@@ -136,5 +148,10 @@ public class HomeFragment extends Fragment {
 
             }
         });
+    }
+
+    private void onStudyStart(View view) {
+        // Todo start LessonActivity
+        Log.d("s", "s");
     }
 }
