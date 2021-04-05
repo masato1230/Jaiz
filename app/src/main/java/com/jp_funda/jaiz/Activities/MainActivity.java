@@ -1,8 +1,9 @@
-package com.jp_funda.jaiz;
+package com.jp_funda.jaiz.Activities;
 
 import android.os.Bundle;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.jp_funda.jaiz.R;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.navigation.NavController;

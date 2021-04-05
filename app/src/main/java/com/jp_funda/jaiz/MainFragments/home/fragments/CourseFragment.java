@@ -1,4 +1,4 @@
-package com.jp_funda.jaiz.ui.home.fragments;
+package com.jp_funda.jaiz.MainFragments.home.fragments;
 
 import android.os.Bundle;
 

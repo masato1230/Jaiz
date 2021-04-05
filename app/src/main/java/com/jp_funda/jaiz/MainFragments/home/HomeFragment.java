@@ -1,19 +1,15 @@
-package com.jp_funda.jaiz.ui.home;
+package com.jp_funda.jaiz.MainFragments.home;
 
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.github.mikephil.charting.charts.PieChart;
@@ -23,19 +19,16 @@ import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.formatter.PercentFormatter;
 import com.github.mikephil.charting.utils.ColorTemplate;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.jp_funda.jaiz.Activities.LessonActivity;
 import com.jp_funda.jaiz.R;
 import com.jp_funda.jaiz.models.Lesson;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.List;
 
 
 public class HomeFragment extends Fragment {
@@ -152,6 +145,9 @@ public class HomeFragment extends Fragment {
 
     private void onStudyStart(View view) {
         // Todo start LessonActivity
-        Log.d("s", "s");
+        Intent intent = new Intent(getActivity(), LessonActivity.class);
+        intent.putExtra("lessonNumber", 1);
+        startActivity(intent);
+        getActivity().finish();
     }
 }
