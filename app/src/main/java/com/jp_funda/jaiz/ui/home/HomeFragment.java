@@ -29,7 +29,9 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.jp_funda.jaiz.R;
+import com.jp_funda.jaiz.models.Lesson;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -62,9 +64,9 @@ public class HomeFragment extends Fragment {
         // firebase Test
         database = FirebaseDatabase.getInstance();
         databaseReference = database.getReference("Data");
+        databaseReference = database.getReference("Lessons").child("lesson1");
         homeTitleOne = root.findViewById(R.id.home_title_one);
         getData();
-        getCompleteData();
 
         // 円グラフの描画
         createPieChart();
@@ -125,22 +127,13 @@ public class HomeFragment extends Fragment {
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                String value = dataSnapshot.getValue(String.class);
-                homeTitleOne.setText(value);
+                Lesson lesson = dataSnapshot.getValue(Lesson.class);
+                homeTitleOne.setText(lesson.lesson_name);
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
 
-            }
-        });
-    }
-
-    public void getCompleteData() {
-        databaseReference.child("Data").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<DataSnapshot> task) {
-                Log.d("Data: " ,String.valueOf(task.getResult().getValue()));
             }
         });
     }
