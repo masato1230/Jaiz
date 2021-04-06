@@ -133,7 +133,7 @@ public class HomeFragment extends Fragment {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 Lesson lesson = dataSnapshot.getValue(Lesson.class);
-                homeTitleOne.setText(lesson.lesson_name);
+                homeTitleOne.setText(lesson.words.get(1));
             }
 
             @Override
