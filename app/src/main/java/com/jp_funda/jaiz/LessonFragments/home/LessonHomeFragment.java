@@ -12,18 +12,18 @@ import android.view.ViewGroup;
 
 import com.jp_funda.jaiz.R;
 
-public class HomeFragment extends Fragment {
+public class LessonHomeFragment extends Fragment {
 
-    private HomeViewModel mViewModel;
+    private LessonHomeViewModel mViewModel;
 
-    public static HomeFragment newInstance() {
-        return new HomeFragment();
+    public static LessonHomeFragment newInstance() {
+        return new LessonHomeFragment();
     }
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        View root = inflater.inflate(R.layout.home_fragment, container, false);
+        View root = inflater.inflate(R.layout.fragment_lesson_home, container, false);
 
         return root;
     }

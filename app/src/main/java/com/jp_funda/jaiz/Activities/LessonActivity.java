@@ -6,6 +6,7 @@ import androidx.fragment.app.FragmentTransaction;
 import android.app.FragmentManager;
 import android.os.Bundle;
 
+import com.jp_funda.jaiz.LessonFragments.home.LessonHomeFragment;
 import com.jp_funda.jaiz.LessonFragments.lesson.LessonFragment;
 import com.jp_funda.jaiz.R;
 
@@ -17,7 +18,7 @@ public class LessonActivity extends AppCompatActivity {
         setContentView(R.layout.activity_lesson);
 
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        transaction.add(R.id.lesson_fragment_container, new LessonFragment());
+        transaction.add(R.id.lesson_fragment_container, new LessonHomeFragment());
         transaction.commit();
     }
 }

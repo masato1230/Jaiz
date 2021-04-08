@@ -13,4 +13,5 @@
     <color name="orange">#FFA652</color>
     <color name="light_pink">#ffb6c1</color>
     <color name="tomato">#ff6347</color>
+    <color name="gray_transparent">#80DCDCDC</color>
 </resources>

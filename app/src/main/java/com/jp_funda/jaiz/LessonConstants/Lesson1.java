@@ -1,4 +1,4 @@
-package com.jp_funda.jaiz.lessons;
+package com.jp_funda.jaiz.LessonConstants;
 
 public class Lesson1 {
     private int lessonNumber;
@@ -22,5 +22,4 @@ public class Lesson1 {
             "銀行員", "医者", "研究者", "エンジニア", "大学", "病院", "電気", "歳", "アメリカ", "イギリス",
             "インド", "インドネシア", "タイ", "中国", "韓国", "ドイツ", "フランス", "ブラジル", "日本"
     };
-
 }
