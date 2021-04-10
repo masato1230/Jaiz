@@ -6,10 +6,13 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.data.Entry;
@@ -17,17 +20,25 @@ import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.formatter.PercentFormatter;
 import com.github.mikephil.charting.utils.ColorTemplate;
+import com.jp_funda.jaiz.LessonFragments.lesson.LessonFragment;
 import com.jp_funda.jaiz.R;
+
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 
 public class LessonHomeFragment extends Fragment {
 
     private LessonHomeViewModel mViewModel;
+    private FragmentTransaction transaction;
 
     // view properties
     private View root;
     private PieChart pieChart;
+    private ImageView listButton;
+    private TextView notGoodButton;
+    private TextView studyButton;
+    private TextView fullReviewButton;
 
     // Constructor
     public static LessonHomeFragment newInstance() {
@@ -39,9 +50,30 @@ public class LessonHomeFragment extends Fragment {
                              @Nullable Bundle savedInstanceState) {
         root = inflater.inflate(R.layout.fragment_lesson_home, container, false);
 
+        // initialize views
+        listButton = root.findViewById(R.id.lesson_home_list_button);
+        notGoodButton = root.findViewById(R.id.lesson_home_not_good_button);
+        studyButton = root.findViewById(R.id.lesson_home_study_button);
+        fullReviewButton = root.findViewById(R.id.lesson_home_full_review_button);
+
+        // Click listeners
+        studyButton.setOnClickListener(this::onStudyClick);
+
         createPieChart();
         return root;
     }
+
+    private void onStudyClick(View view) {
+        transaction = getParentFragmentManager().beginTransaction();
+        transaction.add(R.id.lesson_fragment_container, new LessonFragment());
+        transaction.commit();
+    }
+
+
+    // todo add: notGoodButton listener
+    // todo add: fullReviewButton listener
+    // todo add: listButton listener
+    // todo add: pieChart data
 
 
     // Pie chart

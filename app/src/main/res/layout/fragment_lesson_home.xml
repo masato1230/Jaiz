@@ -64,6 +64,7 @@
         app:layout_constraintTop_toBottomOf="@+id/lesson_home_top" />
 
     <ImageView
+        android:id="@+id/lesson_home_list_button"
         android:layout_width="40dp"
         android:layout_height="40dp"
         android:layout_marginStart="128dp"
@@ -96,7 +97,7 @@
             android:textSize="18dp" />
 
         <TextView
-            android:id="@+id/lesson_home_study"
+            android:id="@+id/lesson_home_study_button"
             android:layout_width="150dp"
             android:layout_height="50dp"
             android:background="@drawable/background_orange_button"
@@ -108,6 +109,7 @@
     </LinearLayout>
 
     <TextView
+        android:id="@+id/lesson_home_full_review_button"
         android:text="@string/full_review"
         android:textSize="18dp"
         android:textStyle="bold"

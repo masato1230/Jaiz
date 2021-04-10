@@ -1,4 +1,4 @@
-package com.jp_funda.jaiz.LessonConstants;
+package com.jp_funda.jaiz.LessonData;
 
 public class Lesson1 {
     private int lessonNumber;

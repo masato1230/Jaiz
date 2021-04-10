@@ -73,7 +73,7 @@ public class HomeFragment extends Fragment {
         createPieChart();
 
         // click listeners
-        studyButton.setOnClickListener(this::onStudyStart);
+        studyButton.setOnClickListener(this::onStudyClick);
 
         return root;
     }
@@ -143,11 +143,10 @@ public class HomeFragment extends Fragment {
         });
     }
 
-    private void onStudyStart(View view) {
+    private void onStudyClick(View view) {
         // Todo start LessonActivity
         Intent intent = new Intent(getActivity(), LessonActivity.class);
         intent.putExtra("lessonNumber", 1);
         startActivity(intent);
-        getActivity().finish();
     }
 }
