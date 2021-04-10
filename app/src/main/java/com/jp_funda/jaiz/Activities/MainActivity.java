@@ -29,6 +29,7 @@ public class MainActivity extends AppCompatActivity {
         NavigationUI.setupWithNavController(navView, navController);
 
         Intent intent = new Intent(this, LessonActivity.class);
+        intent.putExtra("lessonNumber", 1);
         startActivity(intent);
     }
 
