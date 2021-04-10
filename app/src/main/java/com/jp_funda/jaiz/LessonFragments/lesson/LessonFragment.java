@@ -32,7 +32,8 @@ public class LessonFragment extends Fragment {
     }
 
     private void onClickButton(View view) {
-        FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
+        FragmentTransaction transaction = getParentFragmentManager().beginTransaction()
+                .setCustomAnimations(R.anim.fade_in, R.anim.slide_out);
         transaction.remove(this);
         transaction.add(R.id.lesson_fragment_container, new LessonHomeFragment());
         transaction.commit();
