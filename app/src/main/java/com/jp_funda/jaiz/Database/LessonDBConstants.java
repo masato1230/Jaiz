@@ -1,4 +1,4 @@
-package com.jp_funda.jaiz.Data;
+package com.jp_funda.jaiz.Database;
 
 public class LessonDBConstants {
     public static final int DB_VERSION = 1;

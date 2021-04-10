@@ -8,7 +8,6 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,11 +20,9 @@ import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.formatter.PercentFormatter;
 import com.github.mikephil.charting.utils.ColorTemplate;
-import com.jp_funda.jaiz.Data.LessonDatabaseHandler;
+import com.jp_funda.jaiz.Database.LessonDatabaseHandler;
 import com.jp_funda.jaiz.LessonFragments.lesson.LessonFragment;
 import com.jp_funda.jaiz.R;
-
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 

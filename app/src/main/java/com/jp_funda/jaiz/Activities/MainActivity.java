@@ -4,9 +4,9 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.jp_funda.jaiz.Data.LessonDatabaseHandler;
+import com.jp_funda.jaiz.Constants;
+import com.jp_funda.jaiz.Database.LessonDatabaseHandler;
 import com.jp_funda.jaiz.R;
-import com.jp_funda.jaiz.models.Lesson;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.navigation.NavController;
@@ -42,7 +42,7 @@ public class MainActivity extends AppCompatActivity {
         NavigationUI.setupWithNavController(navView, navController);
 
         Intent intent = new Intent(this, LessonActivity.class);
-        intent.putExtra("lessonNumber", 1);
+        intent.putExtra(Constants.LESSON_NUMBER_LABEL, 1);
         startActivity(intent);
     }
 

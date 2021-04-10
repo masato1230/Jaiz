@@ -7,13 +7,5 @@ import androidx.lifecycle.ViewModel;
 import com.jp_funda.jaiz.models.Lesson;
 
 public class LessonViewModel extends ViewModel {
-    private MutableLiveData<Lesson> lesson;
-
-    public LiveData<Lesson> getLessonData() {
-        return lesson;
-    }
-
-    public void loadLessonData() {
-
-    }
+    public Lesson lesson;
 }

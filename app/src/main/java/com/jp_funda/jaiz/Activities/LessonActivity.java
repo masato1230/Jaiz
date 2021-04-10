@@ -2,21 +2,22 @@ package com.jp_funda.jaiz.Activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentTransaction;
-import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 
-import android.app.FragmentManager;
 import android.os.Bundle;
 import android.util.Log;
 
-import com.jp_funda.jaiz.Data.LessonDatabaseHandler;
+import com.jp_funda.jaiz.Constants;
+import com.jp_funda.jaiz.Database.LessonDatabaseHandler;
 import com.jp_funda.jaiz.LessonFragments.home.LessonHomeFragment;
-import com.jp_funda.jaiz.LessonFragments.lesson.LessonFragment;
 import com.jp_funda.jaiz.R;
 import com.jp_funda.jaiz.ViewModles.LessonViewModel;
 import com.jp_funda.jaiz.models.Lesson;
 
 public class LessonActivity extends AppCompatActivity {
+    private int lessonNumber;
+
+    // Data
     public LessonViewModel lessonViewModel;
     private LessonDatabaseHandler lessonDB;
 
@@ -27,13 +28,21 @@ public class LessonActivity extends AppCompatActivity {
 
         // initialize DB
         lessonDB = new LessonDatabaseHandler(this);
-        Lesson lesson = lessonDB.getLesson(1);
-        Log.d("LessonNumber", String.valueOf(lesson.getLessonNumber()));
 
-        // detect lesson number from intent
+        // Detect lesson number from intent
+        lessonNumber = (int) getIntent().getExtras().get(Constants.LESSON_NUMBER_LABEL);
+        // Store lesson data in ViewModel
         lessonViewModel = new ViewModelProvider(this).get(LessonViewModel.class);
-        // lessonViewModel.loadLessonData();
-        lessonViewModel.getLessonData();
+        Lesson lesson = lessonDB.getLesson(1);
+        lessonViewModel.lesson = lesson;
+
+        Log.d("LessonNumber", String.valueOf(lessonViewModel.lesson.getLessonNumber()));
+        Log.d("LessonName", String.valueOf(lessonViewModel.lesson.getLessonName()));
+        Log.d("LessonNameJP", String.valueOf(lessonViewModel.lesson.getLessonNameJP()));
+        for (String word: lessonViewModel.lesson.getWords()) {
+            Log.d("Word", word);
+        }
+
 
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.add(R.id.lesson_fragment_container, new LessonHomeFragment());

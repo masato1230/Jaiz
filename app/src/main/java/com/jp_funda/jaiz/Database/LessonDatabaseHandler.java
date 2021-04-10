@@ -1,4 +1,4 @@
-package com.jp_funda.jaiz.Data;
+package com.jp_funda.jaiz.Database;
 
 import android.content.Context;
 import android.database.Cursor;
