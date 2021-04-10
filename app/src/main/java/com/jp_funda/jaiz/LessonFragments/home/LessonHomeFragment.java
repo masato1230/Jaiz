@@ -8,6 +8,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,6 +21,7 @@ import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.formatter.PercentFormatter;
 import com.github.mikephil.charting.utils.ColorTemplate;
+import com.jp_funda.jaiz.Data.LessonDatabaseHandler;
 import com.jp_funda.jaiz.LessonFragments.lesson.LessonFragment;
 import com.jp_funda.jaiz.R;
 
@@ -31,6 +33,9 @@ public class LessonHomeFragment extends Fragment {
 
     private LessonHomeViewModel mViewModel;
     private FragmentTransaction transaction;
+
+    // db
+    LessonDatabaseHandler lessonDB;
 
     // view properties
     private View root;
@@ -49,6 +54,10 @@ public class LessonHomeFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         root = inflater.inflate(R.layout.fragment_lesson_home, container, false);
+
+        // initialize database
+        lessonDB = new LessonDatabaseHandler(getContext());
+        lessonDB.getLesson(1);
 
         // initialize views
         listButton = root.findViewById(R.id.lesson_home_list_button);

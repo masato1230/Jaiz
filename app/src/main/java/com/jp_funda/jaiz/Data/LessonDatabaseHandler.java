@@ -1,29 +1,31 @@
 package com.jp_funda.jaiz.Data;
 
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
 import android.database.sqlite.SQLiteOpenHelper;
 
 import androidx.annotation.Nullable;
 
+import com.jp_funda.jaiz.models.Lesson;
+
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.ArrayList;
 
 public class LessonDatabaseHandler extends SQLiteOpenHelper {
-    private static String DB_NAME = "lessons";
     private static String DB_NAME_ASSET = "lessons.sqlite3";
-    private static final int DATABASE_VERSION = 1;
     private  Context context;
     private final File mDatabasePath;
 
     public LessonDatabaseHandler(@Nullable Context context) {
-        super(context, DB_NAME, null, DATABASE_VERSION);
+        super(context, LessonDBConstants.DB_NAME, null, LessonDBConstants.DB_VERSION);
         this.context = context;
-        this.mDatabasePath = context.getDatabasePath(DB_NAME);
+        this.mDatabasePath = context.getDatabasePath(LessonDBConstants.DB_NAME);
     }
 
     public void createDatabase() throws IOException {
@@ -48,7 +50,7 @@ public class LessonDatabaseHandler extends SQLiteOpenHelper {
                 }
 
                 if (checkDb != null) {
-                    checkDb.setVersion(DATABASE_VERSION);
+                    checkDb.setVersion(LessonDBConstants.DB_VERSION);
                     checkDb.close();
                 }
 
@@ -79,7 +81,7 @@ public class LessonDatabaseHandler extends SQLiteOpenHelper {
         }
 
         int oldVersion = checkDb.getVersion();
-        int newVersion = DATABASE_VERSION;
+        int newVersion = LessonDBConstants.DB_VERSION;
 
         if (oldVersion == newVersion) {
             // データベースは存在していて最新
@@ -119,11 +121,45 @@ public class LessonDatabaseHandler extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+    }
 
+    public Lesson getLesson(int lessonNumber) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Lesson lesson = new Lesson();
+        Cursor cursor = db.query(
+                LessonDBConstants.TABLE_NAME,
+                new String[] {LessonDBConstants.KEY_LESSON_NUMBER, LessonDBConstants.KEY_LESSON_NAME, LessonDBConstants.KEY_LESSON_NAME_JP, LessonDBConstants.KEY_WORDS, LessonDBConstants.KEY_WORDS_JP},
+                LessonDBConstants.KEY_LESSON_NUMBER + "=?",
+                new String[] {String.valueOf(lessonNumber)},
+                null,
+                null,
+                null);
+        if (cursor != null) {
+            cursor.moveToNext();
+        }
+        // lessonNumber
+        lesson.setLessonNumber(cursor.getInt(cursor.getColumnIndex(LessonDBConstants.KEY_LESSON_NUMBER)));
+        // lessonName
+        lesson.setLessonName(cursor.getString(cursor.getColumnIndex(LessonDBConstants.KEY_LESSON_NAME)));
+        // lessonNameJP
+        lesson.setLessonNameJP(cursor.getString(cursor.getColumnIndex(LessonDBConstants.KEY_LESSON_NAME_JP)));
+        // words
+        ArrayList<String> words = new ArrayList<>();
+        String wordsString = cursor.getString(cursor.getColumnIndex(LessonDBConstants.KEY_WORDS));
+        String[] wordsStringSplit = wordsString.split(",");
+        for (String word: wordsStringSplit) {
+            words.add(word);
+        }
+        lesson.setWords(words);
+        // wordsJP
+        ArrayList<String> wordsJP = new ArrayList<>();
+        String wordsJPString = cursor.getString(cursor.getColumnIndex(LessonDBConstants.KEY_WORDS_JP));
+        String[] wordsJPStringSplit = wordsJPString.split(",");
+        lesson.setWordsJP(wordsJP);
+        return lesson;
     }
 }

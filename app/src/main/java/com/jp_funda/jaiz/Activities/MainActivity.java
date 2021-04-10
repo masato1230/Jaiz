@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.jp_funda.jaiz.Data.LessonDatabaseHandler;
 import com.jp_funda.jaiz.R;
 import com.jp_funda.jaiz.models.Lesson;
 
@@ -13,12 +14,24 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
+import java.io.IOException;
+
 public class MainActivity extends AppCompatActivity {
+    LessonDatabaseHandler lessonDB;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        // create lesson Database
+        lessonDB = new LessonDatabaseHandler(this);
+        try {
+            lessonDB.createDatabase();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
         BottomNavigationView navView = findViewById(R.id.nav_view);
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.

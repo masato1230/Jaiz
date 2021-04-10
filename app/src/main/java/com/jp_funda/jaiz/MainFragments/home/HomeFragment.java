@@ -67,7 +67,6 @@ public class HomeFragment extends Fragment {
         databaseReference = database.getReference("Data");
         databaseReference = database.getReference("Lessons").child("lesson1");
         homeTitleOne = root.findViewById(R.id.home_title_one);
-        getData();
 
         // 円グラフの描画
         createPieChart();
@@ -126,21 +125,6 @@ public class HomeFragment extends Fragment {
         data.setValueTextSize(12f);
         data.setValueTextColor(Color.WHITE);
         return data;
-    }
-
-    public void getData() {
-        databaseReference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                Lesson lesson = dataSnapshot.getValue(Lesson.class);
-                homeTitleOne.setText(lesson.words.get(1));
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
     }
 
     private void onStudyClick(View view) {
