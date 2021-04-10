@@ -87,7 +87,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="16dp"
                     android:layout_marginRight="16dp"
-                    android:background="@drawable/background_study_button"
+                    android:background="@drawable/background_orange_button"
                     android:paddingLeft="12dp"
                     android:paddingTop="7dp"
                     android:paddingRight="12dp"
