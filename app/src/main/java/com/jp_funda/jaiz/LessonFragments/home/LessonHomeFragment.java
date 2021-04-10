@@ -7,7 +7,10 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.lifecycle.ViewModel;
+import androidx.lifecycle.ViewModelProvider;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,6 +26,8 @@ import com.github.mikephil.charting.utils.ColorTemplate;
 import com.jp_funda.jaiz.Database.LessonDatabaseHandler;
 import com.jp_funda.jaiz.LessonFragments.lesson.LessonFragment;
 import com.jp_funda.jaiz.R;
+import com.jp_funda.jaiz.ViewModles.LessonViewModel;
+import com.jp_funda.jaiz.models.Lesson;
 
 import java.util.ArrayList;
 
@@ -51,6 +56,15 @@ public class LessonHomeFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         root = inflater.inflate(R.layout.fragment_lesson_home, container, false);
+        // View Model read test
+        LessonViewModel lessonViewModel = new ViewModelProvider(getActivity())
+                .get(LessonViewModel.class);
+        Log.d("LessonNumber", String.valueOf(lessonViewModel.lesson.getLessonNumber()));
+        Log.d("LessonName", String.valueOf(lessonViewModel.lesson.getLessonName()));
+        Log.d("LessonNameJP", String.valueOf(lessonViewModel.lesson.getLessonNameJP()));
+        for (String word: lessonViewModel.lesson.getWords()) {
+            Log.d("Word", word);
+        }
 
         // initialize database
         lessonDB = new LessonDatabaseHandler(getContext());
@@ -65,7 +79,9 @@ public class LessonHomeFragment extends Fragment {
         // Click listeners
         studyButton.setOnClickListener(this::onStudyClick);
 
+        // pie chart
         createPieChart();
+
         return root;
     }
 

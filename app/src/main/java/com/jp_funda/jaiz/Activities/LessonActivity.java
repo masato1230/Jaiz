@@ -36,13 +36,6 @@ public class LessonActivity extends AppCompatActivity {
         Lesson lesson = lessonDB.getLesson(1);
         lessonViewModel.lesson = lesson;
 
-        Log.d("LessonNumber", String.valueOf(lessonViewModel.lesson.getLessonNumber()));
-        Log.d("LessonName", String.valueOf(lessonViewModel.lesson.getLessonName()));
-        Log.d("LessonNameJP", String.valueOf(lessonViewModel.lesson.getLessonNameJP()));
-        for (String word: lessonViewModel.lesson.getWords()) {
-            Log.d("Word", word);
-        }
-
 
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.add(R.id.lesson_fragment_container, new LessonHomeFragment());
