@@ -10,7 +10,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 
+import com.jp_funda.jaiz.LessonFragments.home.LessonHomeFragment;
 import com.jp_funda.jaiz.R;
 
 
@@ -24,7 +26,7 @@ public class LessonFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View root = inflater.inflate(R.layout.fragment_lesson, container, false);
-        Button button = root.findViewById(R.id.button);
+        ImageView button = root.findViewById(R.id.lesson_break_button);
         button.setOnClickListener(this::onClickButton);
         return root;
     }
@@ -32,6 +34,7 @@ public class LessonFragment extends Fragment {
     private void onClickButton(View view) {
         FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
         transaction.remove(this);
+        transaction.add(R.id.lesson_fragment_container, new LessonHomeFragment());
         transaction.commit();
     }
 }

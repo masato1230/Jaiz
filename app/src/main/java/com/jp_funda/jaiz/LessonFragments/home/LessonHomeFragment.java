@@ -66,6 +66,7 @@ public class LessonHomeFragment extends Fragment {
     private void onStudyClick(View view) {
         transaction = getParentFragmentManager().beginTransaction();
         transaction.add(R.id.lesson_fragment_container, new LessonFragment());
+        transaction.remove(this);
         transaction.commit();
     }
 

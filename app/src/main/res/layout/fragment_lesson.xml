@@ -7,7 +7,7 @@
     tools:context=".LessonFragments.lesson.LessonFragment">
 
     <ImageView
-        android:id="@+id/imageView"
+        android:id="@+id/lesson_break_button"
         android:layout_width="50dp"
         android:layout_height="50dp"
         app:layout_constraintStart_toStartOf="parent"
