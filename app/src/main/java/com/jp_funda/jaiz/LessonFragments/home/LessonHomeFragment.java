@@ -56,19 +56,10 @@ public class LessonHomeFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         root = inflater.inflate(R.layout.fragment_lesson_home, container, false);
-        // View Model read test
+
+        // Get parent activity's LessonViewModel
         LessonViewModel lessonViewModel = new ViewModelProvider(getActivity())
                 .get(LessonViewModel.class);
-        Log.d("LessonNumber", String.valueOf(lessonViewModel.lesson.getLessonNumber()));
-        Log.d("LessonName", String.valueOf(lessonViewModel.lesson.getLessonName()));
-        Log.d("LessonNameJP", String.valueOf(lessonViewModel.lesson.getLessonNameJP()));
-        for (String word: lessonViewModel.lesson.getWords()) {
-            Log.d("Word", word);
-        }
-
-        // initialize database
-        lessonDB = new LessonDatabaseHandler(getContext());
-        lessonDB.getLesson(1);
 
         // initialize views
         listButton = root.findViewById(R.id.lesson_home_list_button);
