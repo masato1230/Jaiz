@@ -9,6 +9,6 @@ public class UserDBConstants {
     public static final String KEY_LESSON_NUMBER = "lesson_number";
     public static final String KEY_ALL_WORDS = "words";
     public static final String KEY_LEARNED_WORDS = "learned_words";
-    public static final String KEY_UNLEARNED_WORDS = "unlearned_words";
+    public static final String KEY_onceMore_WORDS = "onceMore_words";
     public static final String KEY_NOT_GOOD_WORDS = "not_good_words";
 }

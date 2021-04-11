@@ -7,7 +7,7 @@ public class UserLessonStatus {
     private int lessonNumber;
     private ArrayList<String> words;
     private ArrayList<String> learnedWords;
-    private ArrayList<String> unlearnedWords;
+    private ArrayList<String> onceMoreWords;
     private ArrayList<String> notGoodWords;
 
     public int getLessonNumber() {
@@ -34,12 +34,12 @@ public class UserLessonStatus {
         this.learnedWords = learnedWords;
     }
 
-    public ArrayList<String> getUnlearnedWords() {
-        return unlearnedWords;
+    public ArrayList<String> getonceMoreWords() {
+        return onceMoreWords;
     }
 
-    public void setUnlearnedWords(ArrayList<String> unlearnedWords) {
-        this.unlearnedWords = unlearnedWords;
+    public void setOnceMoreWords(ArrayList<String> onceMoreWords) {
+        this.onceMoreWords = onceMoreWords;
     }
 
     public ArrayList<String> getNotGoodWords() {

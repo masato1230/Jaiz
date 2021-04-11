@@ -7,10 +7,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
-import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,7 +25,6 @@ import com.jp_funda.jaiz.Database.LessonDatabaseHandler;
 import com.jp_funda.jaiz.LessonFragments.lesson.LessonFragment;
 import com.jp_funda.jaiz.R;
 import com.jp_funda.jaiz.ViewModles.LessonViewModel;
-import com.jp_funda.jaiz.models.Lesson;
 
 import java.util.ArrayList;
 

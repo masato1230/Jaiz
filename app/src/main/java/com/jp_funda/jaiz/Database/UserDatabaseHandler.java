@@ -26,7 +26,7 @@ public class UserDatabaseHandler extends SQLiteOpenHelper {
                 + UserDBConstants.KEY_LESSON_NUMBER + " INTEGER PRIMARY KEY,"
                 + UserDBConstants.KEY_ALL_WORDS + " TEXT,"
                 + UserDBConstants.KEY_LEARNED_WORDS + " TEXT,"
-                + UserDBConstants.KEY_UNLEARNED_WORDS + " TEXT,"
+                + UserDBConstants.KEY_onceMore_WORDS + " TEXT,"
                 + UserDBConstants.KEY_NOT_GOOD_WORDS + " TEXT"
                 + ")";
         db.execSQL(CREATE_USER_LESSON_TABLE);
@@ -65,16 +65,16 @@ public class UserDatabaseHandler extends SQLiteOpenHelper {
         }
         values.put(UserDBConstants.KEY_LEARNED_WORDS, learnedWordsStringBuilder.toString());
 
-        // unlearnedWords
-        StringBuilder unlearnedWordsStringBuilder = new StringBuilder();
-        if (lessonStatus.getUnlearnedWords() != null) {
-            for (String unlearnedWord: lessonStatus.getUnlearnedWords()) {
-                unlearnedWordsStringBuilder.append(unlearnedWord + ",");
+        // onceMoreWords
+        StringBuilder onceMoreWordsStringBuilder = new StringBuilder();
+        if (lessonStatus.getonceMoreWords() != null) {
+            for (String onceMoreWord: lessonStatus.getonceMoreWords()) {
+                onceMoreWordsStringBuilder.append(onceMoreWord + ",");
             }
             // Delete extra ","
-            unlearnedWordsStringBuilder.setLength(unlearnedWordsStringBuilder.length()-1);
+            onceMoreWordsStringBuilder.setLength(onceMoreWordsStringBuilder.length()-1);
         }
-        values.put(UserDBConstants.KEY_UNLEARNED_WORDS, unlearnedWordsStringBuilder.toString());
+        values.put(UserDBConstants.KEY_onceMore_WORDS, onceMoreWordsStringBuilder.toString());
 
         // notGoodWords
         StringBuilder notGoodWordsStringBuilder = new StringBuilder();
@@ -101,7 +101,7 @@ public class UserDatabaseHandler extends SQLiteOpenHelper {
 
         Cursor cursor = db.query(
                 UserDBConstants.TABLE_NAME,
-                new String[] {UserDBConstants.KEY_UNLEARNED_WORDS, UserDBConstants.KEY_ALL_WORDS, UserDBConstants.KEY_LEARNED_WORDS, UserDBConstants.KEY_UNLEARNED_WORDS, UserDBConstants.KEY_NOT_GOOD_WORDS},
+                new String[] {UserDBConstants.KEY_onceMore_WORDS, UserDBConstants.KEY_ALL_WORDS, UserDBConstants.KEY_LEARNED_WORDS, UserDBConstants.KEY_onceMore_WORDS, UserDBConstants.KEY_NOT_GOOD_WORDS},
                 UserDBConstants.KEY_LESSON_NUMBER + "=?",
                 new String[] {String.valueOf(lessonNumber)},
                 null,
@@ -133,16 +133,16 @@ public class UserDatabaseHandler extends SQLiteOpenHelper {
             }
         }
         lessonStatus.setLearnedWords(learnedWords);
-        // unlearnedWords
-        ArrayList<String> unlearnedWords = new ArrayList<>();
-        String unlearnedWordsString = cursor.getString(cursor.getColumnIndex(UserDBConstants.KEY_UNLEARNED_WORDS));
-        if (!unlearnedWordsString.equals("") && (unlearnedWordsString != null)) {
-            String[] unlearnedWordsStringSplit = unlearnedWordsString.split(",");
-            for (String unlearnedWord: unlearnedWordsStringSplit) {
-                unlearnedWords.add(unlearnedWord);
+        // onceMoreWords
+        ArrayList<String> onceMoreWords = new ArrayList<>();
+        String onceMoreWordsString = cursor.getString(cursor.getColumnIndex(UserDBConstants.KEY_onceMore_WORDS));
+        if (!onceMoreWordsString.equals("") && (onceMoreWordsString != null)) {
+            String[] onceMoreWordsStringSplit = onceMoreWordsString.split(",");
+            for (String onceMoreWord: onceMoreWordsStringSplit) {
+                onceMoreWords.add(onceMoreWord);
             }
         }
-        lessonStatus.setUnlearnedWords(unlearnedWords);
+        lessonStatus.setOnceMoreWords(onceMoreWords);
         // notGoodWords
         ArrayList<String> notGoodWords = new ArrayList<>();
         String notGoodWordsString = cursor.getString(cursor.getColumnIndex(UserDBConstants.KEY_NOT_GOOD_WORDS));

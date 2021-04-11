@@ -1,11 +1,11 @@
 package com.jp_funda.jaiz.Activities;
 
+import android.os.Bundle;
+import android.util.Log;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
-
-import android.os.Bundle;
-import android.util.Log;
 
 import com.jp_funda.jaiz.Constants;
 import com.jp_funda.jaiz.Database.LessonDatabaseHandler;
