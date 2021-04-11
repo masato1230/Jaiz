@@ -15,8 +15,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class UserDataBaseHandler extends SQLiteOpenHelper {
-    public UserDataBaseHandler(@Nullable Context context) {
+public class UserDatabaseHandler extends SQLiteOpenHelper {
+    public UserDatabaseHandler(@Nullable Context context) {
         super(context, UserDBConstants.DB_NAME, null, UserDBConstants.DB_VERSION);
     }
 
@@ -49,8 +49,8 @@ public class UserDataBaseHandler extends SQLiteOpenHelper {
         StringBuilder wordsStringBuilder = new StringBuilder();
         for (String word: lessonStatus.getWords()) {
             wordsStringBuilder.append(word + ",");
+            // Delete extra ","
         }
-        // Delete extra ","
         wordsStringBuilder.setLength(wordsStringBuilder.length()-1);
         values.put(UserDBConstants.KEY_ALL_WORDS, wordsStringBuilder.toString());
 
@@ -109,9 +109,12 @@ public class UserDataBaseHandler extends SQLiteOpenHelper {
                 null);
         if (cursor != null) {
             cursor.moveToFirst();
+        } else {
+            return null;
         }
         // lessonNumber
-        lessonStatus.setLessonNumber(cursor.getInt(cursor.getColumnIndex(UserDBConstants.KEY_LESSON_NUMBER)));
+        // lessonStatus.setLessonNumber(cursor.getInt(cursor.getColumnIndex(UserDBConstants.KEY_LESSON_NUMBER)));
+        lessonStatus.setLessonNumber(lessonNumber);
         // words
         ArrayList<String> words = new ArrayList<>();
         String wordsString = cursor.getString(cursor.getColumnIndex(UserDBConstants.KEY_ALL_WORDS));

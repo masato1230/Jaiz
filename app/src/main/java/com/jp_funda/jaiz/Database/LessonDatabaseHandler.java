@@ -159,6 +159,9 @@ public class LessonDatabaseHandler extends SQLiteOpenHelper {
         ArrayList<String> wordsJP = new ArrayList<>();
         String wordsJPString = cursor.getString(cursor.getColumnIndex(LessonDBConstants.KEY_WORDS_JP));
         String[] wordsJPStringSplit = wordsJPString.split(",");
+        for (String wordJP: wordsJPStringSplit) {
+            wordsJP.add(wordJP);
+        }
         lesson.setWordsJP(wordsJP);
         return lesson;
     }
