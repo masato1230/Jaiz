@@ -21,6 +21,7 @@ import com.jp_funda.jaiz.models.Lesson;
 
 
 public class LessonFragment extends Fragment {
+    private LessonViewModel lessonViewModel;
     private Lesson lesson;
     // View properties
     private ImageView breakButton;
@@ -45,7 +46,7 @@ public class LessonFragment extends Fragment {
         View root = inflater.inflate(R.layout.fragment_lesson, container, false);
 
         // Get parent activity's LessonViewModel and lesson data
-        LessonViewModel lessonViewModel = new ViewModelProvider(getActivity())
+        lessonViewModel = new ViewModelProvider(getActivity())
                 .get(LessonViewModel.class);
         lesson = lessonViewModel.lesson;
 
@@ -64,7 +65,7 @@ public class LessonFragment extends Fragment {
         answerText3 = root.findViewById(R.id.lesson_answer3);
         answerText4 = root.findViewById(R.id.lesson_answer4);
         // Update Views by Data
-        // todo setUserStatus on ViewModel
+        
 
         // Click listeners
         breakButton.setOnClickListener(this::onClickButton);

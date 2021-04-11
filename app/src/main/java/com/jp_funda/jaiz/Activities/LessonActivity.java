@@ -52,6 +52,7 @@ public class LessonActivity extends AppCompatActivity {
         // todo delete
         Log.d("number", String.valueOf(lessonStatus.getLessonNumber()));
         Log.d("words", String.valueOf(lessonStatus.getWords().get(10)));
+        Log.d("unlearned", String.valueOf(lessonStatus.getunLearnedWords().get(10)));
 
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.add(R.id.lesson_fragment_container, new LessonHomeFragment());
