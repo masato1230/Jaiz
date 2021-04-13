@@ -1,18 +1,19 @@
 package com.jp_funda.jaiz.models;
 
-public class CurrentLessonStatus {
-    private int problemNumber;
+public class CurrentStatus {
+    private int problemIndex= 0;
+    private int answerInt;
     private String answer1;
     private String answer2;
     private String answer3;
     private String answer4;
 
-    public int getProblemNumber() {
-        return problemNumber;
+    public int getProblemIndex() {
+        return problemIndex;
     }
 
-    public void setProblemNumber(int problemNumber) {
-        this.problemNumber = problemNumber;
+    public void setProblemIndex(int problemIndex) {
+        this.problemIndex = problemIndex;
     }
 
     public String getAnswer1() {
@@ -45,5 +46,13 @@ public class CurrentLessonStatus {
 
     public void setAnswer4(String answer4) {
         this.answer4 = answer4;
+    }
+
+    public int getAnswerInt() {
+        return answerInt;
+    }
+
+    public void setAnswerInt(int answerInt) {
+        this.answerInt = answerInt;
     }
 }

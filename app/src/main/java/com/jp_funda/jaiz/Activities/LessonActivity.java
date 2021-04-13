@@ -13,6 +13,7 @@ import com.jp_funda.jaiz.Database.UserDatabaseHandler;
 import com.jp_funda.jaiz.LessonFragments.home.LessonHomeFragment;
 import com.jp_funda.jaiz.R;
 import com.jp_funda.jaiz.ViewModles.LessonViewModel;
+import com.jp_funda.jaiz.models.CurrentStatus;
 import com.jp_funda.jaiz.models.Lesson;
 import com.jp_funda.jaiz.models.UserLessonStatus;
 
@@ -21,6 +22,7 @@ public class LessonActivity extends AppCompatActivity {
 
     // Data
     public LessonViewModel lessonViewModel;
+    public CurrentStatus currentStatus;
     private LessonDatabaseHandler lessonDB;
     private UserDatabaseHandler userDB;
 
@@ -36,7 +38,7 @@ public class LessonActivity extends AppCompatActivity {
         // Detect lesson number from intent
         lessonNumber = (int) getIntent().getExtras().get(Constants.LESSON_NUMBER_LABEL);
 
-        // todo delete
+        // todo initialize View Model
         UserLessonStatus testLessonStatus = new UserLessonStatus();
         testLessonStatus.setLessonNumber(lessonNumber);
         testLessonStatus.setWords(lessonDB.getLesson(lessonNumber).getWordsJP());
@@ -48,6 +50,9 @@ public class LessonActivity extends AppCompatActivity {
         UserLessonStatus lessonStatus = userDB.getUserLessonStatus(lessonNumber);
         lessonViewModel.lesson = lesson;
         lessonViewModel.lessonStatus = lessonStatus;
+        CurrentStatus currentStatus = new CurrentStatus();
+        currentStatus.setProblemIndex(0);
+        lessonViewModel.currentStatus = currentStatus;
 
         // todo delete
         Log.d("number", String.valueOf(lessonStatus.getLessonNumber()));
