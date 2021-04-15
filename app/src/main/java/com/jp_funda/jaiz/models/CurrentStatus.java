@@ -2,6 +2,7 @@ package com.jp_funda.jaiz.models;
 
 public class CurrentStatus {
     private int problemIndex= 0;
+    // 1~4の値
     private int answerInt;
     private String answer1;
     private String answer2;

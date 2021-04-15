@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -72,17 +73,6 @@ public class LessonFragment extends Fragment {
         answerText4 = root.findViewById(R.id.lesson_answer4);
 
         // Update Views by Data
-        // progress
-        progressBar.setMax(lessonViewModel.lesson.getWords().size());
-        progressBar.setProgress(lessonViewModel.currentStatus.getProblemIndex()+1);
-        progressBar.setMin(0);
-        // todo commentText
-        // progressText
-        progressText.setText((lessonViewModel.currentStatus
-                .getProblemIndex() + 1) +"/"+lessonViewModel.lesson.getWords().size());
-        // problemWord
-        problemWord.setText(lessonViewModel.lessonStatus.getunLearnedWords().
-                get(lessonViewModel.currentStatus.getProblemIndex()));
         // answerTexts
         updateViewsAndCurrentStatus();
 
@@ -100,6 +90,17 @@ public class LessonFragment extends Fragment {
     }
 
     public void updateViewsAndCurrentStatus() {
+        // progress
+        progressBar.setMax(lessonViewModel.lesson.getWords().size());
+        progressBar.setProgress(lessonViewModel.currentStatus.getProblemIndex()+1);
+        // progressBar.setMin(0);
+        // todo commentText
+        // progressText
+        progressText.setText((lessonViewModel.currentStatus
+                .getProblemIndex() + 1) +"/"+lessonViewModel.lesson.getWords().size());
+        // problemWord
+        problemWord.setText(lessonViewModel.lessonStatus.getunLearnedWords().
+                get(lessonViewModel.currentStatus.getProblemIndex()));
         // 1. update ViewModel
         // 2. update views
         updateCurrentStatus();
@@ -107,19 +108,54 @@ public class LessonFragment extends Fragment {
         answerText2.setText(lessonViewModel.currentStatus.getAnswer2());
         answerText3.setText(lessonViewModel.currentStatus.getAnswer3());
         answerText4.setText(lessonViewModel.currentStatus.getAnswer4());
+        // setClickListeners
+        answerButton1.setOnClickListener(this::onIncorrectAnswerClick);
+        answerButton2.setOnClickListener(this::onIncorrectAnswerClick);
+        answerButton3.setOnClickListener(this::onIncorrectAnswerClick);
+        answerButton4.setOnClickListener(this::onIncorrectAnswerClick);
+        switch (lessonViewModel.currentStatus.getAnswerInt()) {
+            case 1:
+                answerButton1.setOnClickListener(this::onCorrectAnswerClick);
+                break;
+            case 2:
+                answerButton2.setOnClickListener(this::onCorrectAnswerClick);
+                break;
+            case 3:
+                answerButton3.setOnClickListener(this::onCorrectAnswerClick);
+                break;
+            case 4:
+                answerButton4.setOnClickListener(this::onCorrectAnswerClick);
+                break;
+        }
     }
 
-    private int updateCurrentStatus() {
-        // update currentStatus to next problem
-        lessonViewModel.currentStatus
-                .setProblemIndex(lessonViewModel.currentStatus.getProblemIndex());
+    private void onCorrectAnswerClick(View view) {
+        // todo ok dialog
+        // updateCurrentStatus
+        // todo updateUserLessonStatus
+        lessonViewModel.currentStatus.setProblemIndex(
+                lessonViewModel.currentStatus.getProblemIndex()+1
+        );
+        updateViewsAndCurrentStatus();
+    }
 
+    private void onIncorrectAnswerClick(View view) {
+        // todo bad dialog
+        // todo updateUserLessonStatus
+        lessonViewModel.currentStatus.setProblemIndex(
+                lessonViewModel.currentStatus.getProblemIndex()+1
+        );
+        updateViewsAndCurrentStatus();
+    }
+
+
+    public int updateCurrentStatus() {
         // 1~4の内から１つの整数をランダムに生成し、answerIntに代入
         Random rand = new Random();
         int answerInt = rand.nextInt(4) + 1;
+        Log.d("answerInt", String.valueOf(answerInt));
         // CurrentStatusに正解の選択肢番号を登録
         lessonViewModel.currentStatus.setAnswerInt(answerInt);
-        int lessonSize = lessonViewModel.lesson.getWords().size();
         switch (answerInt) {
             case 1:
                 String answer1StringJP = lessonViewModel.lessonStatus.getunLearnedWords()
@@ -198,8 +234,11 @@ public class LessonFragment extends Fragment {
                     .get(rand.nextInt(lessonSize));
             incorrectAnswer3 = lessonViewModel.lesson.getWords()
                     .get(rand.nextInt(lessonSize));
+            answersSet.clear();
+            Collections.addAll(
+                    answersSet, correctAnswer, incorrectAnswer1, incorrectAnswer2, incorrectAnswer3
+            );
         }
-
         return new  String[] {incorrectAnswer1, incorrectAnswer2, incorrectAnswer3};
     }
 }
