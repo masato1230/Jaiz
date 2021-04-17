@@ -10,4 +10,7 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="not_good_at">Not good</string>
     <string name="full_review">Full review</string>
+    <string name="words_studied">Words studied</string>
+    <string name="words">words</string>
+    <string name="result_details">Result Details</string>
 </resources>

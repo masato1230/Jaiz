@@ -18,6 +18,7 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.jp_funda.jaiz.LessonFragments.LessonResultFragment;
 import com.jp_funda.jaiz.LessonFragments.home.LessonHomeFragment;
 import com.jp_funda.jaiz.R;
 import com.jp_funda.jaiz.ViewModles.LessonViewModel;
@@ -103,7 +104,7 @@ public class LessonFragment extends Fragment {
             FragmentTransaction transaction = getParentFragmentManager().beginTransaction()
                     .setCustomAnimations(R.anim.slide_in, R.anim.fade_out);
             // todo create lessonResultFragment
-            transaction.add(R.id.lesson_fragment_container, new LessonHomeFragment());
+            transaction.add(R.id.lesson_fragment_container, new LessonResultFragment());
             transaction.remove(this);
             transaction.commit();
             return;

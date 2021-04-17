@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".LessonFragments.LessonResultFragment">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/lesson_result_header"
+        android:layout_width="match_parent"
+        android:layout_height="50dp" >
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:padding="10dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_home_black_24dp"
+            tools:ignore="VectorDrawableCompat" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="Test Results"
+            android:gravity="center"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            android:textSize="20dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/imageView" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <TextView
+        android:id="@+id/lesson_result_comment"
+        android:gravity="center"
+        android:background="@color/orange"
+        android:text="Comment"
+        android:textColor="@color/white"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:layout_below="@id/lesson_result_header" />
+
+    <TextView
+        android:id="@+id/lesson_result_word_studied"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:gravity="center"
+        android:layout_below="@+id/lesson_result_comment"
+        android:layout_marginTop="0dp"
+        android:text="@string/words_studied" />
+
+    <LinearLayout
+        android:id="@+id/lesson_result_words_number_linear_layout"
+        android:gravity="center"
+        android:layout_below="@id/lesson_result_word_studied"
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:layout_height="50dp" >
+        <TextView
+            android:id="@+id/lesson_result_studied_words_number"
+            android:textColor="@color/red"
+            android:text="10"
+            android:textStyle="bold"
+            android:textSize="20dp"
+            android:gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent" />
+        <TextView
+            android:textSize="20dp"
+            android:textStyle="bold"
+            android:gravity="center"
+            android:text="@string/words"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/lesson_result_correct_rate_linear_layout"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:layout_below="@id/lesson_result_words_number_linear_layout"
+        android:layout_width="match_parent"
+        android:layout_height="70dp" >
+        <TextView
+            android:id="@+id/lesson_result_correct_rate"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="10/30"
+            android:gravity="center"
+            android:textSize="36dp"
+            android:textStyle="bold"
+            android:textColor="@color/black" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/lesson_result_details_header"
+        android:gravity="center"
+        android:textColor="@color/white"
+        android:text="@string/result_details"
+        android:background="@color/red"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:layout_below="@id/lesson_result_correct_rate_linear_layout" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/lesson_result_recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/lesson_result_details_header" />
+
+</RelativeLayout>
