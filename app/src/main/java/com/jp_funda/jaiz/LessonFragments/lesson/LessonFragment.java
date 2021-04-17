@@ -1,5 +1,7 @@
 package com.jp_funda.jaiz.LessonFragments.lesson;
 
+import android.app.AlertDialog;
+import android.app.Dialog;
 import android.os.Build;
 import android.os.Bundle;
 
@@ -12,6 +14,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AlphaAnimation;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
@@ -33,6 +36,7 @@ public class LessonFragment extends Fragment {
     // View properties
     private ImageView breakButton;
     private ProgressBar progressBar;
+    private ImageView resultImage;
     private TextView commentText;
     private TextView progressText;
     private TextView problemWord;
@@ -60,6 +64,7 @@ public class LessonFragment extends Fragment {
         // Initialize Views
         breakButton = root.findViewById(R.id.lesson_break_button);
         progressBar = root.findViewById(R.id.lesson_progressbar);
+        resultImage = root.findViewById(R.id.lesson_result_image);
         commentText = root.findViewById(R.id.lesson_comment);
         progressText = root.findViewById(R.id.lesson_progress_text);
         problemWord = root.findViewById(R.id.lesson_word);
@@ -130,12 +135,20 @@ public class LessonFragment extends Fragment {
     }
 
     private void onCorrectAnswerClick(View view) {
-        // todo ok dialog
         // updateCurrentStatus
         // todo updateUserLessonStatus
         lessonViewModel.currentStatus.setProblemIndex(
                 lessonViewModel.currentStatus.getProblemIndex()+1
         );
+        // Show Correct Image and set fade out animation
+        resultImage.setImageResource(R.drawable.correct);
+        resultImage.setAlpha(1f);
+
+        resultImage.animate()
+                .alpha(0f)
+                .setDuration(1000)
+                .setListener(null);
+        // update view and currentStatus
         updateViewsAndCurrentStatus();
     }
 
@@ -145,6 +158,15 @@ public class LessonFragment extends Fragment {
         lessonViewModel.currentStatus.setProblemIndex(
                 lessonViewModel.currentStatus.getProblemIndex()+1
         );
+        // Show Incorrect Image and set fade out animation
+        resultImage.setImageResource(R.drawable.incorrect);
+        resultImage.setAlpha(1f);
+
+        resultImage.animate()
+                .alpha(0f)
+                .setDuration(1000)
+                .setListener(null);
+        // update view and currentStatus
         updateViewsAndCurrentStatus();
     }
 
