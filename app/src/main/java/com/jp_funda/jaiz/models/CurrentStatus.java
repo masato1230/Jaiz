@@ -1,5 +1,8 @@
 package com.jp_funda.jaiz.models;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+
 public class CurrentStatus {
     private int problemIndex= 0;
     // 1~4の値
@@ -8,6 +11,8 @@ public class CurrentStatus {
     private String answer2;
     private String answer3;
     private String answer4;
+    private ArrayList<String> correctlyAnsweredWords;
+    private ArrayList<String> incorrectlyAnsweredWords;
 
     public int getProblemIndex() {
         return problemIndex;
@@ -55,5 +60,21 @@ public class CurrentStatus {
 
     public void setAnswerInt(int answerInt) {
         this.answerInt = answerInt;
+    }
+
+    public ArrayList<String> getCorrectlyAnsweredWords() {
+        return correctlyAnsweredWords;
+    }
+
+    public void setCorrectlyAnsweredWords(ArrayList<String> correctlyAnsweredWords) {
+        this.correctlyAnsweredWords = correctlyAnsweredWords;
+    }
+
+    public ArrayList<String> getIncorrectlyAnsweredWords() {
+        return incorrectlyAnsweredWords;
+    }
+
+    public void setIncorrectlyAnsweredWords(ArrayList<String> incorrectlyAnsweredWords) {
+        this.incorrectlyAnsweredWords = incorrectlyAnsweredWords;
     }
 }

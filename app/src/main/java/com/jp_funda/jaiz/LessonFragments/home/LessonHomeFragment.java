@@ -30,7 +30,6 @@ import java.util.ArrayList;
 
 public class LessonHomeFragment extends Fragment {
 
-    private LessonHomeViewModel mViewModel;
     private FragmentTransaction transaction;
 
     // db

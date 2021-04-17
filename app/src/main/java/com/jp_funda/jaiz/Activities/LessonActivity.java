@@ -38,26 +38,16 @@ public class LessonActivity extends AppCompatActivity {
         // Detect lesson number from intent
         lessonNumber = (int) getIntent().getExtras().get(Constants.LESSON_NUMBER_LABEL);
 
-        // todo initialize View Model
-        UserLessonStatus testLessonStatus = new UserLessonStatus();
-        testLessonStatus.setLessonNumber(lessonNumber);
-        testLessonStatus.setWords(lessonDB.getLesson(lessonNumber).getWordsJP());
-        userDB.addOrUpdateLessonStatus(testLessonStatus);
-
         // Store lesson data in ViewModel
         lessonViewModel = new ViewModelProvider(this).get(LessonViewModel.class);
         Lesson lesson = lessonDB.getLesson(lessonNumber);
         UserLessonStatus lessonStatus = userDB.getUserLessonStatus(lessonNumber);
         lessonViewModel.lesson = lesson;
         lessonViewModel.lessonStatus = lessonStatus;
+        // set currentStatus
         CurrentStatus currentStatus = new CurrentStatus();
         currentStatus.setProblemIndex(0);
         lessonViewModel.currentStatus = currentStatus;
-
-        // todo delete
-        Log.d("number", String.valueOf(lessonStatus.getLessonNumber()));
-        Log.d("words", String.valueOf(lessonStatus.getWords().get(10)));
-        Log.d("unlearned", String.valueOf(lessonStatus.getunLearnedWords().get(10)));
 
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.add(R.id.lesson_fragment_container, new LessonHomeFragment());

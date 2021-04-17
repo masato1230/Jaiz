@@ -1,10 +1,9 @@
 package com.jp_funda.jaiz.LessonFragments.lesson;
 
-import android.app.AlertDialog;
-import android.app.Dialog;
 import android.os.Build;
 import android.os.Bundle;
 
+import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
@@ -14,7 +13,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.AlphaAnimation;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
@@ -23,10 +21,12 @@ import android.widget.TextView;
 import com.jp_funda.jaiz.LessonFragments.home.LessonHomeFragment;
 import com.jp_funda.jaiz.R;
 import com.jp_funda.jaiz.ViewModles.LessonViewModel;
-import com.jp_funda.jaiz.models.Lesson;
+import com.jp_funda.jaiz.models.UserLessonStatus;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Random;
 import java.util.Set;
 
@@ -79,7 +79,7 @@ public class LessonFragment extends Fragment {
 
         // Update Views by Data
         // answerTexts
-        updateViewsAndCurrentStatus();
+        updateViewsAndCurrentStatus(null, null);
 
         // Click listeners
         breakButton.setOnClickListener(this::onBreakButtonClick);
@@ -94,7 +94,36 @@ public class LessonFragment extends Fragment {
         transaction.commit();
     }
 
-    public void updateViewsAndCurrentStatus() {
+    public void updateViewsAndCurrentStatus(
+            @Nullable String correctlyAnsweredWord,
+            @Nullable String incorrectlyAnsweredWord
+    ) {
+        // if lesson finish transfer user to result fragment
+        if (lessonViewModel.currentStatus.getProblemIndex()+1 > lessonViewModel.lessonStatus.getUnlearnedWords().size()) {
+            FragmentTransaction transaction = getParentFragmentManager().beginTransaction()
+                    .setCustomAnimations(R.anim.slide_in, R.anim.fade_out);
+            // todo create lessonResultFragment
+            transaction.add(R.id.lesson_fragment_container, new LessonHomeFragment());
+            transaction.remove(this);
+            transaction.commit();
+            return;
+        }
+
+        // update correctlyAnsweredWords
+        ArrayList<String> newCorrectlyAnsweredWords = new ArrayList<>();
+        if (lessonViewModel.currentStatus.getCorrectlyAnsweredWords() != null) {
+            newCorrectlyAnsweredWords.addAll(lessonViewModel.currentStatus.getCorrectlyAnsweredWords());
+        }
+        newCorrectlyAnsweredWords.add(correctlyAnsweredWord);
+        lessonViewModel.currentStatus.setCorrectlyAnsweredWords(newCorrectlyAnsweredWords);
+        // update incorrectlyAnsweredWords
+        ArrayList<String> newIncorrectlyAnsweredWords = new ArrayList<>();
+        if (lessonViewModel.currentStatus.getIncorrectlyAnsweredWords() != null) {
+            newIncorrectlyAnsweredWords.addAll(lessonViewModel.currentStatus.getIncorrectlyAnsweredWords());
+        }
+        newIncorrectlyAnsweredWords.add(incorrectlyAnsweredWord);
+        lessonViewModel.currentStatus.setIncorrectlyAnsweredWords(newIncorrectlyAnsweredWords);
+
         // progress
         progressBar.setMax(lessonViewModel.lesson.getWords().size());
         progressBar.setProgress(lessonViewModel.currentStatus.getProblemIndex()+1);
@@ -104,7 +133,7 @@ public class LessonFragment extends Fragment {
         progressText.setText((lessonViewModel.currentStatus
                 .getProblemIndex() + 1) +"/"+lessonViewModel.lesson.getWords().size());
         // problemWord
-        problemWord.setText(lessonViewModel.lessonStatus.getunLearnedWords().
+        problemWord.setText(lessonViewModel.lessonStatus.getUnlearnedWords().
                 get(lessonViewModel.currentStatus.getProblemIndex()));
         // 1. update ViewModel
         // 2. update views
@@ -136,9 +165,13 @@ public class LessonFragment extends Fragment {
 
     private void onCorrectAnswerClick(View view) {
         // updateCurrentStatus
-        // todo updateUserLessonStatus
         lessonViewModel.currentStatus.setProblemIndex(
                 lessonViewModel.currentStatus.getProblemIndex()+1
+        );
+        // update view and currentStatus
+        updateViewsAndCurrentStatus(
+                lessonViewModel.lessonStatus.getUnlearnedWords().get(lessonViewModel.currentStatus.getProblemIndex()-1),
+                null
         );
         // Show Correct Image and set fade out animation
         resultImage.setImageResource(R.drawable.correct);
@@ -148,13 +181,10 @@ public class LessonFragment extends Fragment {
                 .alpha(0f)
                 .setDuration(1000)
                 .setListener(null);
-        // update view and currentStatus
-        updateViewsAndCurrentStatus();
     }
 
     private void onIncorrectAnswerClick(View view) {
-        // todo bad dialog
-        // todo updateUserLessonStatus
+        // updateUserLessonStatus
         lessonViewModel.currentStatus.setProblemIndex(
                 lessonViewModel.currentStatus.getProblemIndex()+1
         );
@@ -167,7 +197,10 @@ public class LessonFragment extends Fragment {
                 .setDuration(1000)
                 .setListener(null);
         // update view and currentStatus
-        updateViewsAndCurrentStatus();
+        updateViewsAndCurrentStatus(
+                null,
+                lessonViewModel.lessonStatus.getUnlearnedWords().get(lessonViewModel.currentStatus.getProblemIndex()-1)
+        );
     }
 
 
@@ -180,7 +213,7 @@ public class LessonFragment extends Fragment {
         lessonViewModel.currentStatus.setAnswerInt(answerInt);
         switch (answerInt) {
             case 1:
-                String answer1StringJP = lessonViewModel.lessonStatus.getunLearnedWords()
+                String answer1StringJP = lessonViewModel.lessonStatus.getUnlearnedWords()
                         .get(lessonViewModel.currentStatus.getProblemIndex());
                 String answer1StringEN = lessonViewModel
                         .lesson.getWords()
@@ -193,7 +226,7 @@ public class LessonFragment extends Fragment {
                 lessonViewModel.currentStatus.setAnswer4(incorrectAnswers[2]);
                 break;
             case 2:
-                String answer2StringJP = lessonViewModel.lessonStatus.getunLearnedWords()
+                String answer2StringJP = lessonViewModel.lessonStatus.getUnlearnedWords()
                         .get(lessonViewModel.currentStatus.getProblemIndex());
                 String answer2StringEN = lessonViewModel
                         .lesson.getWords()
@@ -206,7 +239,7 @@ public class LessonFragment extends Fragment {
                 lessonViewModel.currentStatus.setAnswer4(incorrectAnswers[2]);
                 break;
             case 3:
-                String answer3StringJP = lessonViewModel.lessonStatus.getunLearnedWords()
+                String answer3StringJP = lessonViewModel.lessonStatus.getUnlearnedWords()
                         .get(lessonViewModel.currentStatus.getProblemIndex());
                 String answer3StringEN = lessonViewModel
                         .lesson.getWords()
@@ -219,7 +252,7 @@ public class LessonFragment extends Fragment {
                 lessonViewModel.currentStatus.setAnswer4(incorrectAnswers[2]);
                 break;
             case 4:
-                String answer4StringJP = lessonViewModel.lessonStatus.getunLearnedWords()
+                String answer4StringJP = lessonViewModel.lessonStatus.getUnlearnedWords()
                         .get(lessonViewModel.currentStatus.getProblemIndex());
                 String answer4StringEN = lessonViewModel
                         .lesson.getWords()

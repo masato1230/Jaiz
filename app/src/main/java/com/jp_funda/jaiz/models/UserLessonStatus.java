@@ -4,6 +4,7 @@ import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class UserLessonStatus {
+    // all words is Japanese
     private int lessonNumber;
     private ArrayList<String> words;
     private ArrayList<String> learnedWords;
@@ -34,11 +35,11 @@ public class UserLessonStatus {
         this.learnedWords = learnedWords;
     }
 
-    public ArrayList<String> getunLearnedWords() {
+    public ArrayList<String> getUnlearnedWords() {
         return unLearnedWords;
     }
 
-    public void setunLearnedWords(ArrayList<String> unLearnedWords) {
+    public void setUnlearnedWords(ArrayList<String> unLearnedWords) {
         this.unLearnedWords = unLearnedWords;
     }
 

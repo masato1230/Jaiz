@@ -10,9 +10,7 @@ import androidx.annotation.Nullable;
 
 import com.jp_funda.jaiz.models.UserLessonStatus;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.List;
 
 
 public class UserDatabaseHandler extends SQLiteOpenHelper {
@@ -67,8 +65,8 @@ public class UserDatabaseHandler extends SQLiteOpenHelper {
 
         // unLearnedWords
         StringBuilder unLearnedWordsStringBuilder = new StringBuilder();
-        if (lessonStatus.getunLearnedWords() != null) {
-            for (String unLearnedWord: lessonStatus.getunLearnedWords()) {
+        if (lessonStatus.getUnlearnedWords() != null) {
+            for (String unLearnedWord: lessonStatus.getUnlearnedWords()) {
                 unLearnedWordsStringBuilder.append(unLearnedWord + ",");
             }
             // Delete extra ","
@@ -148,7 +146,7 @@ public class UserDatabaseHandler extends SQLiteOpenHelper {
                 unLearnedWords.add(unLearnedWord);
             }
         }
-        lessonStatus.setunLearnedWords(unLearnedWords);
+        lessonStatus.setUnlearnedWords(unLearnedWords);
         // notGoodWords
         ArrayList<String> notGoodWords = new ArrayList<>();
         String notGoodWordsString = cursor.getString(cursor.getColumnIndex(UserDBConstants.KEY_NOT_GOOD_WORDS));
