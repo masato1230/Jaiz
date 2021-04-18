@@ -77,4 +77,14 @@ public class CurrentStatus {
     public void setIncorrectlyAnsweredWords(ArrayList<String> incorrectlyAnsweredWords) {
         this.incorrectlyAnsweredWords = incorrectlyAnsweredWords;
     }
+
+    public void cleanCurrentStatus() {
+        problemIndex = 0;
+        answer1 = null;
+        answer2 = null;
+        answer3 = null;
+        answer4 = null;
+        correctlyAnsweredWords = null;
+        incorrectlyAnsweredWords = null;
+    }
 }
