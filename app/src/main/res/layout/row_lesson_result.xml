@@ -8,51 +8,50 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/lesson_result_row_japanese"
-        android:text="日本語"
-        android:textSize="20dp"
-        android:textColor="@color/black"
-        android:textStyle="bold"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-    <TextView
-        android:id="@+id/lesson_result_row_english"
-        android:text="Japanese"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:padding="5dp"
+        android:background="@drawable/background_red_square"
+        android:padding="10dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" >
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:id="@+id/lesson_result_row_japanese"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="日本語"
+                android:textColor="@color/white"
+                android:textSize="20dp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/lesson_result_row_english"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Japanese"
+                android:textColor="@color/white" />
+
+        </LinearLayout>
 
         <CheckBox
             android:id="@+id/lesson_result_row_good_check_box"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/royal_blue"
-            android:background="@drawable/background_blue_square"
-            android:textStyle="bold"
+            android:background="@drawable/background_orange_square"
+            android:paddingLeft="20dp"
+            android:paddingRight="40dp"
             android:text="@string/good"
-            android:paddingLeft="20dp"
-            android:paddingRight="70dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <CheckBox
-            android:id="@+id/lesson_result_row_not_good_check_box"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="32dp"
-            android:layout_marginLeft="32dp"
-            android:textColor="@color/red"
+            android:textColor="@color/white"
             android:textStyle="bold"
-            android:background="@drawable/background_red_square"
-            android:paddingLeft="20dp"
-            android:paddingRight="50dp"
-            android:text="@string/not_good_at"
-            app:layout_constraintStart_toEndOf="@+id/lesson_result_row_good_check_box"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
