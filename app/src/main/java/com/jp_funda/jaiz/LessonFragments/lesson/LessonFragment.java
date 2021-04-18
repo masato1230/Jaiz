@@ -103,7 +103,7 @@ public class LessonFragment extends Fragment {
         if (lessonViewModel.currentStatus.getProblemIndex()+1 > lessonViewModel.lessonStatus.getUnlearnedWords().size()) {
             FragmentTransaction transaction = getParentFragmentManager().beginTransaction()
                     .setCustomAnimations(R.anim.slide_in, R.anim.fade_out);
-            // todo create lessonResultFragment
+            // transfer user to lessonResultFragment
             transaction.add(R.id.lesson_fragment_container, new LessonResultFragment());
             transaction.remove(this);
             transaction.commit();
