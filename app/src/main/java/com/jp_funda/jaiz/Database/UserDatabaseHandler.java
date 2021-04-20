@@ -57,6 +57,8 @@ public class UserDatabaseHandler extends SQLiteOpenHelper {
         if (lessonStatus.getLearnedWords() != null) {
             for (String learnedWord: lessonStatus.getLearnedWords()) {
                 learnedWordsStringBuilder.append(learnedWord + ",");
+            }
+            if (learnedWordsStringBuilder.length() > 0) {
                 // Delete extra ","
                 learnedWordsStringBuilder.setLength(learnedWordsStringBuilder.length()-1);
             }
@@ -69,8 +71,10 @@ public class UserDatabaseHandler extends SQLiteOpenHelper {
             for (String unLearnedWord: lessonStatus.getUnlearnedWords()) {
                 unLearnedWordsStringBuilder.append(unLearnedWord + ",");
             }
-            // Delete extra ","
-            unLearnedWordsStringBuilder.setLength(unLearnedWordsStringBuilder.length()-1);
+            if (unLearnedWordsStringBuilder.length() > 0) {
+                // Delete extra ","
+                unLearnedWordsStringBuilder.setLength(unLearnedWordsStringBuilder.length()-1);
+            }
         }
 
         values.put(UserDBConstants.KEY_unLearned_WORDS, unLearnedWordsStringBuilder.toString());
@@ -78,11 +82,14 @@ public class UserDatabaseHandler extends SQLiteOpenHelper {
         // notGoodWords
         StringBuilder notGoodWordsStringBuilder = new StringBuilder();
         if (lessonStatus.getNotGoodWords() != null) {
+            // todo index out ofrange
             for (String notGoodWord: lessonStatus.getNotGoodWords()) {
                 notGoodWordsStringBuilder.append(notGoodWord + ",");
             }
             // Delete extra ","
-            notGoodWordsStringBuilder.setLength(notGoodWordsStringBuilder.length()-1);
+            if (notGoodWordsStringBuilder.length() > 0) {
+                notGoodWordsStringBuilder.setLength(notGoodWordsStringBuilder.length()-1);
+            }
         }
         values.put(UserDBConstants.KEY_NOT_GOOD_WORDS, notGoodWordsStringBuilder.toString());
 
@@ -158,6 +165,7 @@ public class UserDatabaseHandler extends SQLiteOpenHelper {
         }
         lessonStatus.setNotGoodWords(notGoodWords);
 
+        cursor.close();
         return lessonStatus;
     }
 }

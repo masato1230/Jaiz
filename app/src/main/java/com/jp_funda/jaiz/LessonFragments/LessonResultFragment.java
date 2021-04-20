@@ -3,6 +3,7 @@ package com.jp_funda.jaiz.LessonFragments;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -10,9 +11,12 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.jp_funda.jaiz.Database.UserDatabaseHandler;
+import com.jp_funda.jaiz.LessonFragments.home.LessonHomeFragment;
+import com.jp_funda.jaiz.LessonFragments.lesson.LessonFragment;
 import com.jp_funda.jaiz.R;
 import com.jp_funda.jaiz.Recyclers.LessonResultViewAdapter;
 import com.jp_funda.jaiz.ViewModles.LessonViewModel;
@@ -26,13 +30,18 @@ import java.util.List;
 public class LessonResultFragment extends Fragment {
     private UserDatabaseHandler userDB;
     // View properties
+    private ImageView headerHomeButton;
     private TextView commentText;
     private TextView studiedWordsNumberText;
     private TextView correctRateText;
     private RecyclerView recyclerView;
+    private TextView footerHomeButton;
 
     // ViewModel
     private LessonViewModel lessonViewModel;
+
+    // Other
+    FragmentTransaction transaction;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -46,10 +55,17 @@ public class LessonResultFragment extends Fragment {
         View root = inflater.inflate(R.layout.fragment_lesson_result, container, false);
 
         // initialize userDB
-        UserDatabaseHandler userDB = new UserDatabaseHandler(getActivity());
+        userDB = new UserDatabaseHandler(getActivity());
 
         // initialize view model
         lessonViewModel = new ViewModelProvider(getActivity()).get(LessonViewModel.class);
+
+        // initialize views
+        headerHomeButton = root.findViewById(R.id.lesson_result_header_home_button);
+        commentText = root.findViewById(R.id.lesson_result_comment);
+        studiedWordsNumberText = root.findViewById(R.id.lesson_result_studied_words_number);
+        correctRateText = root.findViewById(R.id.lesson_result_correct_rate);
+        footerHomeButton = root.findViewById(R.id.lesson_result_footer_home_button);
 
         // RecyclerView
         recyclerView = root.findViewById(R.id.lesson_result_recycler_view);
@@ -58,6 +74,29 @@ public class LessonResultFragment extends Fragment {
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(adapter);
+
+        // Click listeners
+        headerHomeButton.setOnClickListener(this::onHomeButtonClick);
+        footerHomeButton.setOnClickListener(this::onHomeButtonClick);
+
+        // Reflect the data to Views
+        int correctlyAnsweredNumber = 0;
+        int incorrectlyAnsweredNumber = 0;
+        for (String word: lessonViewModel.currentStatus.getCorrectlyAnsweredWords()) {
+            if (word != null) {
+                correctlyAnsweredNumber++;
+            }
+        }
+        for (String word: lessonViewModel.currentStatus.getIncorrectlyAnsweredWords()) {
+            if (word != null) {
+                incorrectlyAnsweredNumber++;
+            }
+        }
+        int answeredNumber = correctlyAnsweredNumber + incorrectlyAnsweredNumber;
+        studiedWordsNumberText.setText(
+                String.valueOf(correctlyAnsweredNumber)
+        );
+        correctRateText.setText(correctlyAnsweredNumber+"/"+answeredNumber);
 
         return root;
     }
@@ -81,6 +120,7 @@ public class LessonResultFragment extends Fragment {
         // 3.
         ArrayList<String> updatedNotGoodWords = new ArrayList<>(lessonViewModel.lessonStatus.getNotGoodWords());
         updatedNotGoodWords.addAll(lessonViewModel.currentStatus.getIncorrectlyAnsweredWords());
+        lessonViewModel.lessonStatus.setNotGoodWords(updatedNotGoodWords);
 
         // update db with updated lessonStatus
         userDB.addOrUpdateLessonStatus(lessonViewModel.lessonStatus);
@@ -108,5 +148,13 @@ public class LessonResultFragment extends Fragment {
             dataSet.add(rowData);
         }
         return dataSet;
+    }
+
+    private void onHomeButtonClick(View view) {
+        transaction = getParentFragmentManager().beginTransaction()
+                .setCustomAnimations(R.anim.fade_in, R.anim.slide_out);
+        transaction.add(R.id.lesson_fragment_container, new LessonHomeFragment());
+        transaction.remove(this);
+        transaction.commit();
     }
 }
