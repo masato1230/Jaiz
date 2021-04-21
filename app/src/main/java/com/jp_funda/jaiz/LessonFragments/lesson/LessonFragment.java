@@ -99,17 +99,6 @@ public class LessonFragment extends Fragment {
             @Nullable String correctlyAnsweredWord,
             @Nullable String incorrectlyAnsweredWord
     ) {
-        // if lesson finish transfer user to result fragment
-        if (lessonViewModel.currentStatus.getProblemIndex()+1 > lessonViewModel.lessonStatus.getUnlearnedWords().size()) {
-            FragmentTransaction transaction = getParentFragmentManager().beginTransaction()
-                    .setCustomAnimations(R.anim.slide_in, R.anim.fade_out);
-            // transfer user to lessonResultFragment
-            transaction.add(R.id.lesson_fragment_container, new LessonResultFragment());
-            transaction.remove(this);
-            transaction.commit();
-            return;
-        }
-
         // update correctlyAnsweredWords
         ArrayList<String> newCorrectlyAnsweredWords = new ArrayList<>();
         if (lessonViewModel.currentStatus.getCorrectlyAnsweredWords() != null) {
@@ -124,6 +113,17 @@ public class LessonFragment extends Fragment {
         }
         newIncorrectlyAnsweredWords.add(incorrectlyAnsweredWord);
         lessonViewModel.currentStatus.setIncorrectlyAnsweredWords(newIncorrectlyAnsweredWords);
+
+        // if lesson finish transfer user to result fragment
+        if (lessonViewModel.currentStatus.getProblemIndex()+1 > lessonViewModel.lessonStatus.getUnlearnedWords().size()) {
+            FragmentTransaction transaction = getParentFragmentManager().beginTransaction()
+                    .setCustomAnimations(R.anim.slide_in, R.anim.fade_out);
+            // transfer user to lessonResultFragment
+            transaction.add(R.id.lesson_fragment_container, new LessonResultFragment());
+            transaction.remove(this);
+            transaction.commit();
+            return;
+        }
 
         // progress
         progressBar.setMax(lessonViewModel.lesson.getWords().size());

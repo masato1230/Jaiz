@@ -8,14 +8,20 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 import androidx.annotation.Nullable;
 
+import com.jp_funda.jaiz.models.Lesson;
 import com.jp_funda.jaiz.models.UserLessonStatus;
 
 import java.util.ArrayList;
 
 
 public class UserDatabaseHandler extends SQLiteOpenHelper {
+    private Context context;
+    private LessonDatabaseHandler lessonDB;
+
     public UserDatabaseHandler(@Nullable Context context) {
         super(context, UserDBConstants.DB_NAME, null, UserDBConstants.DB_VERSION);
+        this.context = context;
+        this.lessonDB = new LessonDatabaseHandler(context);
     }
 
     @Override
@@ -82,7 +88,6 @@ public class UserDatabaseHandler extends SQLiteOpenHelper {
         // notGoodWords
         StringBuilder notGoodWordsStringBuilder = new StringBuilder();
         if (lessonStatus.getNotGoodWords() != null) {
-            // todo index out ofrange
             for (String notGoodWord: lessonStatus.getNotGoodWords()) {
                 notGoodWordsStringBuilder.append(notGoodWord + ",");
             }
@@ -167,5 +172,38 @@ public class UserDatabaseHandler extends SQLiteOpenHelper {
 
         cursor.close();
         return lessonStatus;
+    }
+
+    // created => 1, no => 0
+    public int initializeUserLessonStatusIfNotExistData(int lessonNumber) {
+        Lesson lesson = lessonDB.getLesson(lessonNumber);
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        // lessonNumber
+        values.put(UserDBConstants.KEY_LESSON_NUMBER, lessonNumber);
+
+        // words
+        StringBuilder wordsStringBuilder = new StringBuilder();
+        for (String word: lesson.getWordsJP()) {
+            wordsStringBuilder.append(word + ",");
+            // Delete extra ","
+        }
+        wordsStringBuilder.setLength(wordsStringBuilder.length()-1);
+        values.put(UserDBConstants.KEY_ALL_WORDS, wordsStringBuilder.toString());
+
+        // learnedWords
+        values.put(UserDBConstants.KEY_LEARNED_WORDS, "");
+
+        // unLearnedWords
+        values.put(UserDBConstants.KEY_unLearned_WORDS, wordsStringBuilder.toString());
+
+        // notGoodWords
+        values.put(UserDBConstants.KEY_NOT_GOOD_WORDS, "");
+
+        // todo checkthis
+        db.insertWithOnConflict(UserDBConstants.TABLE_NAME, null, values, SQLiteDatabase.CONFLICT_IGNORE);
+
+        return 1;
     }
 }

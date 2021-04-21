@@ -41,6 +41,8 @@ public class LessonActivity extends AppCompatActivity {
         // Store lesson data in ViewModel
         lessonViewModel = new ViewModelProvider(this).get(LessonViewModel.class);
         Lesson lesson = lessonDB.getLesson(lessonNumber);
+        // if lessonStatusData doesn't exist, initialize db
+        userDB.initializeUserLessonStatusIfNotExistData(lessonNumber);
         UserLessonStatus lessonStatus = userDB.getUserLessonStatus(lessonNumber);
         lessonViewModel.lesson = lesson;
         lessonViewModel.lessonStatus = lessonStatus;
